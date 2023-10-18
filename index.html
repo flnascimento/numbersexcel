@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gerador de Números para Excel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: calc(100% - 10px);
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #message {
+      margin-top: 10px;
+      color: #4CAF50;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <label for="startNumber">Número Inicial:</label>
+    <input type="number" id="startNumber" />
+
+    <label for="endNumber">Número Final:</label>
+    <input type="number" id="endNumber" />
+
+    <label for="repetitions">Quantidade de Repetições:</label>
+    <input type="number" id="repetitions" />
+
+    <button onclick="generateAndCopy()">Gerar e Copiar</button>
+
+    <div id="message"></div>
+  </div>
+
+  <script>
+    function generateAndCopy() {
+      const startNumber = parseInt(document.getElementById('startNumber').value);
+      const endNumber = parseInt(document.getElementById('endNumber').value);
+      const repetitions = parseInt(document.getElementById('repetitions').value);
+
+      let generatedNumbers = '';
+
+      for (let i = startNumber; i <= endNumber; i++) {
+        for (let j = 0; j < repetitions; j++) {
+          generatedNumbers += `${i}\n`;
+        }
+      }
+
+      copyToClipboard(generatedNumbers);
+    }
+
+    function copyToClipboard(text) {
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = text;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempTextArea);
+
+      const messageDiv = document.getElementById('message');
+      messageDiv.innerText = 'Números gerados e copiados para a área de transferência.';
+    }
+  </script>
+</body>
+</html>
